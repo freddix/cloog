@@ -1,11 +1,11 @@
 Summary:	Library that generates loops for scanning polyhedra
 Name:		cloog
-Version:	0.18.1
+Version:	0.18.2
 Release:	1
 License:	GPL v2+
 Group:		Libraries
 Source0:	http://www.bastoul.net/cloog/pages/download/%{name}-%{version}.tar.gz
-# Source0-md5:	e34fca0540d840e5d0f6427e98c92252
+# Source0-md5:	69116aa6cd5e73f6b688d871875e1292
 URL:		http://www.cloog.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -36,6 +36,7 @@ This is the package containing the header files for cloog library.
 %setup -q
 
 %build
+install -d osl
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
@@ -48,7 +49,7 @@ This is the package containing the header files for cloog library.
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
+%{__make} -j1 install \
 	INSTALL="%{__install} -p" \
 	DESTDIR=$RPM_BUILD_ROOT
 
