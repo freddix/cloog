@@ -1,8 +1,8 @@
 Summary:	Library that generates loops for scanning polyhedra
 Name:		cloog
 Version:	0.18.2
-Release:	1
-License:	GPL v2+
+Release:	2
+License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://www.bastoul.net/cloog/pages/download/%{name}-%{version}.tar.gz
 # Source0-md5:	69116aa6cd5e73f6b688d871875e1292
@@ -12,7 +12,6 @@ BuildRequires:	automake
 BuildRequires:	gmp-c++-devel
 BuildRequires:	isl-devel
 BuildRequires:	libtool
-Requires(post):	/usr/sbin/ldconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,12 +35,14 @@ This is the package containing the header files for cloog library.
 %setup -q
 
 %build
-install -d osl
+install -d {cmake,osl}
+touch cmake/{cloog-isl-config.cmake,isl-config.cmake}
 %{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__automake}
 %configure \
+	--disable-silent-rules	\
 	--disable-static	\
 	--with-isl=system
 %{__make}
@@ -50,8 +51,9 @@ install -d osl
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} -j1 install \
-	INSTALL="%{__install} -p" \
 	DESTDIR=$RPM_BUILD_ROOT
+
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,7 +63,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE README
+%doc README
 %attr(755,root,root) %{_bindir}/cloog
 %attr(755,root,root) %ghost %{_libdir}/libcloog-isl.so.4
 %attr(755,root,root) %{_libdir}/libcloog-isl.so.*.*.*
