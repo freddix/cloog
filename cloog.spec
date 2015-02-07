@@ -1,11 +1,11 @@
 Summary:	Library that generates loops for scanning polyhedra
 Name:		cloog
-Version:	0.18.2
-Release:	3
+Version:	0.18.3
+Release:	1
 License:	LGPL v2.1
 Group:		Libraries
 Source0:	http://www.bastoul.net/cloog/pages/download/%{name}-%{version}.tar.gz
-# Source0-md5:	69116aa6cd5e73f6b688d871875e1292
+# Source0-md5:	3ded42bb87022981abccd42466a00b65
 URL:		http://www.cloog.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
